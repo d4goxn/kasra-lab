@@ -15,7 +15,7 @@ module.exports = {
 
   // If you want to use the ExtractTextPlugin
   //   and you want compressed
-  styleLoader: 'style-loader!css-loader!sass-loader',
+  styleLoader: 'style-loader!css-loader!sass-loader?sourceMap',
   //   or if you want expanded CSS
   //     styleLoader: ExtractTextPlugin.extract("style-loader", "css-loader!sass?outputStyle=expanded"),
 

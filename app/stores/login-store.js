@@ -20,7 +20,8 @@ class LoginStore {
     }
     else {
       this.clearUser();
-      this.error = data.error.message;
+      console.log(data);
+      // this.error = data.error.message;
       this.redirectToLogin();
     }
   }
