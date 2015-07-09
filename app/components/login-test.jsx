@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import {Input, Button, Alert} from 'react-bootstrap';
 import {changeHandler} from 'utils/component-utils';
@@ -11,7 +9,7 @@ import LoginActions from 'actions/login-actions';
 
 @connectToStores
 @changeHandler
-export default class Login extends React.Component {
+export default class FilmProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

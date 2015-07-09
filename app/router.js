@@ -1,11 +1,17 @@
-import Router from 'react-router';
-import routes from 'routes';
+var router = {
+	transitionTo: () => {return null; }
+};
+if (!process.env.TEST) {
+	console.log("NOT IN TEST!!");
+	var Router = require("react-router");
+	var routes = require("routes");
 
-var config = {routes};
-if (process.env.BROWSER) {
-  config.location = Router.HistoryLocation;
+	var config = {routes};
+	if (process.env.BROWSER) {
+		config.location = Router.HistoryLocation;
+	}
+
+	router = Router.create(config);
 }
-
-const router = Router.create(config);
 
 export default router;

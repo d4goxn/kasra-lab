@@ -1,6 +1,17 @@
 import React from 'react';
+import connectToStores from 'alt/utils/connectToStores';
+import StatusStore from 'stores/status-store';
 
+@connectToStores
 export default class Footer extends React.Component {
+  static getStores() {
+    return [
+      StatusStore
+    ];
+  }
+  static getPropsFromStores() {
+    return StatusStore.getState();
+  }
   render() {
     return (
       <footer className='app-footer'>
