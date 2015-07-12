@@ -1,4 +1,3 @@
-console.log("in login store!!!");
 import alt from "utils/alt";
 import {defer} from "lodash";
 import api from "utils/api";

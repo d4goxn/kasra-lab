@@ -8,7 +8,7 @@
     "dev": "node --harmony ./webpack/dev-server.js",
     "prod": "NODE_ENV=production node server/index.js",
     "test": "./node_modules/.bin/karma start --single-run",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
   },
   "repository": {
     "type": "git",
@@ -54,6 +54,7 @@
     "isparta-loader": "^0.2.0",
     "jscs": "^1.13.1",
     "jscs-loader": "0.1.0",
+    "jsdom": "^5.6.0",
     "json-loader": "^0.5.2",
     "karma": "^0.12.37",
     "karma-chrome-launcher": "^0.2.0",
@@ -88,6 +89,7 @@
     "moment": "^2.10.3",
     "mongoose": "^4.0.6",
     "mongoose-json-select": "^0.2.1",
+    "nock": "^2.7.0",
     "node-sass": "^3.2.0",
     "node-uuid": "^1.4.3",
     "node-watch": "^0.3.4",
@@ -106,6 +108,8 @@
     "rewire": "^2.3.4",
     "rewire-webpack": "^1.0.0",
     "sass-loader": "^1.0.2",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0",
     "style-loader": "^0.12.3",
     "superagent": "^1.2.0",
     "url-loader": "^0.5.6",
