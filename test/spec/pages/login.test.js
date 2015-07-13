@@ -41,7 +41,7 @@ describe("Login", () => {
 
 	beforeEach(() => {
 		mockery.enable({
-			// warnOnReplace: false,
+			warnOnReplace: false,
 			warnOnUnregistered: false
 
 			// useCleanCache: true
