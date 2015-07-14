@@ -13,9 +13,12 @@ const should = chai.should();
 chai.use(sinonChai);
 
 const mockUserResponse = {token: 123};
+const mockUserError = {message: "fail"};
 
 describe("LoginStore", () => {
-
+	// Don't forget to clean DOM
+	// initDom.run();
+	initDom.fakeLocalStorage();
 	let store;
 
 	beforeEach(() => {
@@ -23,14 +26,12 @@ describe("LoginStore", () => {
 		mockery.enable({
 			warnOnReplace: false,
 			warnOnUnregistered: false
-
-			// useCleanCache: true
 		});
 		nock.disableNetConnect();
-		nock("http://localhost:80")
-				.post("/auth/login")
-				.reply(200, mockUserResponse);
-
+		/**
+		 * router must be mocked out from components using it,
+		 * otherwise bad stuff will happen
+		 */
 		const	routerMock = require("../../utils/router-mock");
 		mockery.registerMock("router", routerMock);
 
@@ -38,8 +39,17 @@ describe("LoginStore", () => {
 		alt.flush();
 	});
 
+	afterEach(() => {
+		mockery.disable();
+		initDom.restoreWindow();
+		nock.enableNetConnect();
+	});
+
 	describe("successul login", () => {
 		beforeEach((done) => {
+			nock("http://localhost:80")
+				.post("/auth/login")
+				.reply(200, mockUserResponse);
 			const handleChange = () => {
 				store.unlisten(handleChange);
 				done();
@@ -56,6 +66,33 @@ describe("LoginStore", () => {
 			let state = store.getState();
 			state.user.should.deep.eq(mockUserResponse);
 			should.not.exist(state.error);
+		});
+	});
+
+	describe("failed login", () => {
+		beforeEach((done) => {
+			nock("http://localhost:80")
+				.post("/auth/login")
+				.reply(401, {message: 'fail'});
+			const handleChange = () => {
+				console.log('in change!!!');
+				store.unlisten(handleChange);
+				done();
+			};
+
+			let state = store.getState();
+			// should.not.exist(state.user);
+			// should.not.exist(state.error);
+			store.listen(handleChange);
+			actions.login();
+			// done();
+		});
+
+		it("should store error", function() {
+			let state = store.getState();
+			console.log(state);
+			// state.error.should.deep.eq("fail");
+			// should.not.exist(state.error);
 		});
 	});
 });

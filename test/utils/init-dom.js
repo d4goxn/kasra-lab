@@ -1,11 +1,14 @@
-import jsdom from "jsdom";
-import sinon from "sinon";
+var jsdom = require("jsdom");
+var sinon = require("sinon");
 
 module.exports = {
 	run: function() {
+		delete global.document;
+		delete global.window;
+		delete global.navigator;
 		global.document = jsdom.jsdom();
 		global.window = document.defaultView;
-		global.navigator = sinon.spy();
+		global.navigator = global.window.navigator;
 	},
 
 	stashWindow: function() {

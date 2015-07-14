@@ -9,4 +9,5 @@ require("module").Module._initPaths();
 
 require("babel/register");
 
-// require("../utils/init-dom").run();
+var initDom = require("../utils/init-dom");
+initDom.run();

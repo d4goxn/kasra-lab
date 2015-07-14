@@ -46,13 +46,13 @@ export default {
 			publicPath: PUBLIC_PATH
 		},
 		module: {
-			preLoaders: [
-				{
-					test: /\.js$|.jsx$/,
-					exclude: /node_modules|styles/,
-					loaders: ["eslint-loader", "jscs-loader"]
-				}
-			],
+			// preLoaders: [
+			// 	{
+			// 		test: /\.js$|.jsx$/,
+			// 		exclude: /node_modules|styles/,
+			// 		loaders: ["eslint-loader", "jscs-loader"]
+			// 	}
+			// ],
 			loaders: [
 				{
 					test: /\.json$/,

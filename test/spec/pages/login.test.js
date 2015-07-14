@@ -20,13 +20,6 @@ const should = chai.should();
 // const expect = chai.expect();
 chai.use(sinonChai);
 
-initDom.run();
-if (!axios.get.calledWith) {
-	sinon.spy(axios, "get");
-	sinon.spy(axios, "put");
-	sinon.spy(axios, "post");
-	sinon.spy(axios, "delete");
-}
 
 const mockLogin = {
 	username: "foo",
@@ -36,8 +29,17 @@ const mockLogin = {
 const mockUserResponse = {token: 123};
 
 describe("Login", () => {
+	// initDom.run();
+	if (!axios.get.calledWith) {
+		sinon.spy(axios, "get");
+		sinon.spy(axios, "put");
+		sinon.spy(axios, "post");
+		sinon.spy(axios, "delete");
+	}
 
 	var instance;
+	var element;
+	var component;
 
 	beforeEach(() => {
 		mockery.enable({
@@ -54,7 +56,13 @@ describe("Login", () => {
 		// mockery.registerMock("stores/login-store", loginStoreMock);
 
 		const Login = require("components/login");
-		instance = getWrappedComponent(TestUtils.renderIntoDocument(<Login/>));
+		component = React.render(<Login/>, document.body);
+		instance = getWrappedComponent(component);
+		element = document.body.children[0];
+		// instance = getWrappedComponent(component);
+		// var inputs = instance.getElementsByTagName('input');
+		// console.log(inputs);
+		// instance = getWrappedComponent(TestUtils.renderIntoDocument(<Login/>));
 		initDom.stashWindow();
 		initDom.fakeLocalStorage();
 
@@ -65,6 +73,7 @@ describe("Login", () => {
 		mockery.disable();
 		initDom.restoreWindow();
 		nock.enableNetConnect();
+		React.unmountComponentAtNode(document.body);
 	});
 
 	it("should have input fields", function() {
@@ -77,7 +86,9 @@ describe("Login", () => {
 			nock("http://localhost:80")
 				.post("/auth/login")
 				.reply(200, mockUserResponse);
-			instance.state.login = mockLogin;
+			instance.setState({
+				login: mockLogin
+			});
 			instance.login();
 		});
 

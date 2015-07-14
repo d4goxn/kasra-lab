@@ -4,7 +4,8 @@ import api from "utils/api";
 import LoginActions from "actions/login-actions";
 
 // import {routerObject} from "utils/store-utils";
-var router = require("router");
+// var router = require("router");
+import router from "router";
 
 const USER_STORAGE_KEY = "filmdbUser";
 
@@ -21,9 +22,8 @@ class LoginStore {
 			this.redirectToHome();
 		}
 		else {
+			this.error = data && data.error && data.error.message;
 			this.clearUser();
-			console.log(data);
-
 			// this.error = data.error.message;
 			this.redirectToLogin();
 		}
