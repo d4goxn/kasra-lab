@@ -1,24 +1,14 @@
-import chai from "chai";
-import sinon from "sinon";
-
-import sinonChai from "sinon-chai";
-
 import mockery from "mockery";
 import nock from "nock";
-import actions from "actions/login-actions";
-import initDom from "../../utils/init-dom";
-import alt from "utils/alt";
-const should = chai.should();
+import initDom from "utils/test/init-dom";
 
-chai.use(sinonChai);
+import alt from "utils/alt";
+import actions from "actions/login-actions";
 
 const mockUserResponse = {token: 123};
 const mockUserError = {message: "fail"};
 
 describe("LoginStore", () => {
-	// Don't forget to clean DOM
-	// initDom.run();
-	initDom.fakeLocalStorage();
 	let store;
 
 	beforeEach(() => {
@@ -32,7 +22,7 @@ describe("LoginStore", () => {
 		 * router must be mocked out from components using it,
 		 * otherwise bad stuff will happen
 		 */
-		const	routerMock = require("../../utils/router-mock");
+		const	routerMock = require("utils/test/router-mock");
 		mockery.registerMock("router", routerMock);
 
 		store = require("stores/login-store");
@@ -73,26 +63,22 @@ describe("LoginStore", () => {
 		beforeEach((done) => {
 			nock("http://localhost:80")
 				.post("/auth/login")
-				.reply(401, {message: 'fail'});
+				.reply(401, mockUserError);
 			const handleChange = () => {
-				console.log('in change!!!');
 				store.unlisten(handleChange);
 				done();
 			};
 
 			let state = store.getState();
-			// should.not.exist(state.user);
-			// should.not.exist(state.error);
+			should.not.exist(state.user);
+			should.not.exist(state.error);
 			store.listen(handleChange);
 			actions.login();
-			// done();
 		});
 
 		it("should store error", function() {
 			let state = store.getState();
-			console.log(state);
-			// state.error.should.deep.eq("fail");
-			// should.not.exist(state.error);
+			state.error.should.eq(mockUserError.message);
 		});
 	});
 });

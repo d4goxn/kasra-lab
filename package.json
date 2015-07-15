@@ -8,6 +8,7 @@
     "dev": "node --harmony ./webpack/dev-server.js",
     "prod": "NODE_ENV=production node server/index.js",
     "test": "node --harmony ./test/mocha-runner",
+    "testwatch": "node --harmony ./test/mocha-runner -w",
     "postinstall": "npm run build"
   },
   "repository": {
@@ -118,7 +119,8 @@
     "superagent": "^1.2.0",
     "url-loader": "^0.5.6",
     "webpack": "^1.10.1",
-    "webpack-dev-server": "^1.10.1"
+    "webpack-dev-server": "^1.10.1",
+    "yargs": "^3.15.0"
   },
   "engines": {
     "iojs": "^1.7.0"

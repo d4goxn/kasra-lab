@@ -1,25 +1,13 @@
-import chai from "chai";
-import sinon from "sinon";
-
 import React from "react/addons";
 
-import shallowRenderComponent from "../../utils/shallow-render-component";
-import initDom from "../../utils/init-dom";
-
-import getWrappedComponent from "../../utils/get-wrapped-component";
+import getWrappedComponent from "utils/test/get-wrapped-component";
+import initDom from "utils/test/init-dom";
 
 import mockery from "mockery";
 import nock from "nock";
 import axios from "axios";
-import sinonChai from "sinon-chai";
-// import {defer} from "lodash";
-// import LoginStore from "stores/login-store";
 
 const TestUtils = React.addons.TestUtils;
-const should = chai.should();
-// const expect = chai.expect();
-chai.use(sinonChai);
-
 
 const mockLogin = {
 	username: "foo",
@@ -29,7 +17,6 @@ const mockLogin = {
 const mockUserResponse = {token: 123};
 
 describe("Login", () => {
-	// initDom.run();
 	if (!axios.get.calledWith) {
 		sinon.spy(axios, "get");
 		sinon.spy(axios, "put");
@@ -38,35 +25,23 @@ describe("Login", () => {
 	}
 
 	var instance;
-	var element;
 	var component;
 
 	beforeEach(() => {
 		mockery.enable({
 			warnOnReplace: false,
 			warnOnUnregistered: false
-
-			// useCleanCache: true
 		});
 		nock.disableNetConnect();
 
-		const	routerMock = require("../../utils/router-mock");
+		const	routerMock = require("utils/test/router-mock");
 		mockery.registerMock("router", routerMock);
-
-		// mockery.registerMock("stores/login-store", loginStoreMock);
 
 		const Login = require("components/login");
 		component = React.render(<Login/>, document.body);
 		instance = getWrappedComponent(component);
-		element = document.body.children[0];
-		// instance = getWrappedComponent(component);
-		// var inputs = instance.getElementsByTagName('input');
-		// console.log(inputs);
-		// instance = getWrappedComponent(TestUtils.renderIntoDocument(<Login/>));
+
 		initDom.stashWindow();
-		initDom.fakeLocalStorage();
-
-
 	});
 
 	afterEach(() => {
@@ -95,9 +70,9 @@ describe("Login", () => {
 		it("should call login", function() {
 			axios.post.getCall(0).args[0].should.eq("/auth/login");
 			axios.post.getCall(0).args[1].should.deep.eq(mockLogin);
+
 			// should.exist(instance.props.user);
 			// should.not.exist(instance.props.error);
-
 		});
 	});
 });

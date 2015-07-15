@@ -35,4 +35,11 @@
     "modules": true,
     "blockBindings": true
   }
+  "globals": {
+    "sinon": true,
+    "chai": true,
+    "assert": true,
+    "expect": true,
+    "should": true
+  }
 }

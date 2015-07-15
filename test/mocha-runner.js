@@ -1,51 +1,48 @@
 process.env.NODE_PATH = "app";
 require("module").Module._initPaths();
 require("babel/register");
-var uncache = require("require-uncache");
 
 var _ = require("lodash");
+var uncache = require("require-uncache");
 var glob = require("glob").sync;
 var Mocha = require("mocha");
-
-var chokidar = require('chokidar');
+var jsdom = require("jsdom");
 
 // globals
-var jsdom = require("jsdom");
 global.document = jsdom.jsdom();
 global.window = document.defaultView;
 global.navigator = global.window.navigator;
 global.location = global.window.location;
+global.localStorage = {
+	getItem: _.noop,
+	setItem: _.noop,
+	removeItem: _.noop
+};
 
-// DEBUG = false;
-// global.navigator.userAgent = "NodeJs JsDom";
-// global.navigator.appVersion = "";
+DEBUG = false;
+global.navigator.userAgent = "NodeJs JsDom";
+global.navigator.appVersion = "";
 
-// global.sinon = require("sinon");
-// global.chai = require("chai");
-// global.chai.use(require("chai-spies"));
-// global.chai.use(require("sinon-chai"));
-// global.assert = global.chai.assert;
-// global.expect = global.chai.expect;
-// global.should = global.chai.should();
+global.sinon = require("sinon");
+global.chai = require("chai");
+global.chai.use(require("chai-spies"));
+global.chai.use(require("sinon-chai"));
+global.assert = global.chai.assert;
+global.expect = global.chai.expect;
+global.should = global.chai.should();
 
-// gather test files
-// var filePatterns = _([
-// 	"test/**/*test.js"
-// ]);
-// console.log(glob("test/**/*test.js"));
-// var testFiles = filePatterns.map(function(pattern) {
-// 	var files = glob(pattern);
-// 	console.log(files);
-// 	return files;
-// });
-
- //.flatten();
+var filePatterns = _([
+	"test/**/*spec.js",
+	"app/**/*spec.js"
+]);
 
 function runTests() {
 	var mocha = new Mocha();
 	mocha.reporter("spec").ui("bdd");
-	var testFiles = glob("test/**/*test.js");
-	console.log(testFiles);
+	var testFiles = filePatterns.reduce(function(sum, item) {
+		return sum.concat(glob(item));
+	}, []);
+
 	mocha.suite.on("pre-require", function(context, file) {
 		uncache(file);
 	});
@@ -59,10 +56,13 @@ function runTests() {
 
 runTests();
 
-chokidar.watch(["./app", "./test"], {ignored: /[\/\\]\./}).on('all', function(event, path) {
-	if (event === "change") {
-		console.log(event, path);
-		runTests();
-	}
-});
-
+var argv = require("yargs").argv;
+if (argv.w) {
+	var chokidar = require("chokidar");
+	chokidar.watch(["./app", "./test"], {ignored: /[\/\\]\./}).on("all", function(event, path) {
+		if (event === "change") {
+			console.log(event, path);
+			runTests();
+		}
+	});
+}
