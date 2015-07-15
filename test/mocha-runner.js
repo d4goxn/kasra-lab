@@ -8,21 +8,6 @@ var glob = require("glob").sync;
 var Mocha = require("mocha");
 var jsdom = require("jsdom");
 
-// globals
-global.document = jsdom.jsdom();
-global.window = document.defaultView;
-global.navigator = global.window.navigator;
-global.location = global.window.location;
-global.localStorage = {
-	getItem: _.noop,
-	setItem: _.noop,
-	removeItem: _.noop
-};
-
-DEBUG = false;
-global.navigator.userAgent = "NodeJs JsDom";
-global.navigator.appVersion = "";
-
 global.sinon = require("sinon");
 global.chai = require("chai");
 global.chai.use(require("chai-spies"));
@@ -37,6 +22,21 @@ var filePatterns = _([
 ]);
 
 function runTests() {
+	// globals
+	global.document = jsdom.jsdom();
+	global.window = document.defaultView;
+	global.navigator = global.window.navigator;
+	global.location = global.window.location;
+	global.localStorage = {
+		getItem: _.noop,
+		setItem: _.noop,
+		removeItem: _.noop
+	};
+
+	DEBUG = false;
+	global.navigator.userAgent = "NodeJs JsDom";
+	global.navigator.appVersion = "";
+
 	var mocha = new Mocha();
 	mocha.reporter("spec").ui("bdd");
 	var testFiles = filePatterns.reduce(function(sum, item) {
@@ -53,6 +53,10 @@ function runTests() {
 
 	mocha.run();
 }
+
+process.on("uncaughtException", function(err) {
+	console.err(err);
+});
 
 runTests();
 
