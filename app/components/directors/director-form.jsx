@@ -1,13 +1,13 @@
-import React from 'react';
-import Formsy from 'formsy-react';
-import BootstrapInput from 'components/shared/bootstrap-input';
-import PikadayInput from 'components/shared/pikaday-input';
-import SelectInput from 'components/shared/select-input';
-import {Modal, Button} from 'react-bootstrap';
-import countries from 'utils/countries';
-import {defer} from 'lodash';
+import React from "react";
+import Formsy from "formsy-react";
+import BootstrapInput from "components/shared/bootstrap-input";
+import PikadayInput from "components/shared/pikaday-input";
+import SelectInput from "components/shared/select-input";
+import {Modal, Button} from "react-bootstrap";
+import countries from "utils/countries";
+import {defer} from "lodash";
 
-import DirectorsActions from 'actions/directors-actions';
+import DirectorsActions from "actions/directors-actions";
 
 export default class DirectorForm extends React.Component {
   static propTypes = {
@@ -43,20 +43,20 @@ export default class DirectorForm extends React.Component {
   render() {
     var title;
     var send;
-    var nameError = 'Must have at least 2 letters';
-    var textError = 'Must have at least 10 letters';
-    var nationError = 'Nationality must be selected';
+    var nameError = "Must have at least 2 letters";
+    var textError = "Must have at least 10 letters";
+    var nationError = "Nationality must be selected";
     if (this.props.editItem) {
-      title = 'Edit director ' + this.props.editItem.name;
-      send = 'Update';
+      title = "Edit director " + this.props.editItem.name;
+      send = "Update";
     }
     else {
-      title = 'Add new director';
-      send = 'Create';
+      title = "Add new director";
+      send = "Create";
     }
     return (
       <Modal {...this.props} ref="modalInstance" title={title} animation={false}>
-        <div className='modal-body'>
+        <div className="modal-body">
           <Formsy.Form ref="directorForm" onValidSubmit={this.submit.bind(this)}>
             <BootstrapInput
               name="name"
@@ -83,7 +83,7 @@ export default class DirectorForm extends React.Component {
               validationError={textError}/>
           </Formsy.Form>
         </div>
-        <div className='modal-footer'>
+        <div className="modal-footer">
           <Button className="pull-left" ref="closeButton" onClick={this.close.bind(this)}>Cancel</Button>
           <Button bsStyle="success" type="submit" onClick={this.send.bind(this)}>{send}</Button>
         </div>

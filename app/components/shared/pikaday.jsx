@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require("react");
 var Pikaday;
 
 // This will be used by Pikaday
@@ -6,9 +6,9 @@ var Pikaday;
 var moment;
 
 if (process.env.BROWSER) {
-  moment = require('moment');
-  Pikaday = require('pikaday');
-  require('pikaday/css/pikaday.css');
+  moment = require("moment");
+  Pikaday = require("pikaday");
+  require("pikaday/css/pikaday.css");
 }
 
 var ReactPikaday = React.createClass({
@@ -39,9 +39,9 @@ var ReactPikaday = React.createClass({
     if (newTime !== prevTime) {
       if (newDate === null) {
         // Workaround for pikaday not clearing value when date set to falsey
-        this.refs.pikaday.getDOMNode().value = '';
+        this.refs.pikaday.getDOMNode().value = "";
       }
-      this._picker.setDate(newDate, true);  // 2nd param = don't call onSelect
+      this._picker.setDate(newDate, true);  // 2nd param = don"t call onSelect
     }
   },
 

@@ -1,17 +1,17 @@
-'use strict';
+"use strict";
 
-import React from 'react';
-import connectToStores from 'alt/utils/connectToStores';
-import FilmItem from 'components/shared/film-item';
+import React from "react";
+import connectToStores from "alt/utils/connectToStores";
+import FilmItem from "components/shared/film-item";
 
-import DirectorsStore from 'stores/directors-store';
-import FilmsStore from 'stores/films-store';
-import StatusStore from 'stores/directors-store';
-import LoginStore from 'stores/login-store';
-import DirectorsActions from 'actions/directors-actions';
-import FilmsActions from 'actions/films-actions';
-import StatusActions from 'actions/status-actions';
-import LoginActions from 'actions/login-actions';
+import DirectorsStore from "stores/directors-store";
+import FilmsStore from "stores/films-store";
+import StatusStore from "stores/directors-store";
+import LoginStore from "stores/login-store";
+import DirectorsActions from "actions/directors-actions";
+import FilmsActions from "actions/films-actions";
+import StatusActions from "actions/status-actions";
+import LoginActions from "actions/login-actions";
 
 @connectToStores
 export default class DirectorProfile extends React.Component {
@@ -42,7 +42,7 @@ export default class DirectorProfile extends React.Component {
         <h2>Loading...</h2>
       );
     }
-    else if (this.props.director !== '') {
+    else if (this.props.director !== "") {
       return (
         <div className="container">
           <h1>Director profile</h1>

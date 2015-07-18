@@ -1,11 +1,11 @@
-import React from 'react';
-import Formsy from 'formsy-react';
-import BootstrapInput from 'components/shared/bootstrap-input';
-import SelectInput from 'components/shared/select-input';
-import {Modal, Button} from 'react-bootstrap';
-import {defer} from 'lodash';
+import React from "react";
+import Formsy from "formsy-react";
+import BootstrapInput from "components/shared/bootstrap-input";
+import SelectInput from "components/shared/select-input";
+import {Modal, Button} from "react-bootstrap";
+import {defer} from "lodash";
 
-import FilmsActions from 'actions/films-actions';
+import FilmsActions from "actions/films-actions";
 
 export default class FilmForm extends React.Component {
   static propTypes = {
@@ -41,21 +41,21 @@ export default class FilmForm extends React.Component {
   render() {
     var title;
     var send;
-    var nameError = 'Must have at least 2 letters';
-    var idError = 'Director must be selected';
-    var textError = 'Must have at least 10 letters';
-    var yearError = 'Must be a year from 20th or 21st century';
+    var nameError = "Must have at least 2 letters";
+    var idError = "Director must be selected";
+    var textError = "Must have at least 10 letters";
+    var yearError = "Must be a year from 20th or 21st century";
     if (this.props.editItem) {
-      title = 'Edit film ' + this.props.editItem.name;
-      send = 'Update';
+      title = "Edit film " + this.props.editItem.name;
+      send = "Update";
     }
     else {
-      title = 'Add new film';
-      send = 'Create';
+      title = "Add new film";
+      send = "Create";
     }
     return (
       <Modal {...this.props} ref="modalInstance" title={title} animation={false}>
-        <div className='modal-body'>
+        <div className="modal-body">
           <Formsy.Form ref="filmForm" onValidSubmit={this.submit.bind(this)}>
             <BootstrapInput
               name="name"
@@ -85,7 +85,7 @@ export default class FilmForm extends React.Component {
               validationError={textError}/>
           </Formsy.Form>
         </div>
-        <div className='modal-footer'>
+        <div className="modal-footer">
           <Button className="pull-left" ref="closeButton" onClick={this.close.bind(this)}>Close</Button>
           <Button bsStyle="success" type="submit" onClick={this.send.bind(this)}>{send}</Button>
         </div>

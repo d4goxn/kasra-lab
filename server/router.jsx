@@ -1,17 +1,17 @@
-'use strict';
+"use strict";
 
-import fs from 'fs';
-import path from 'path';
-import debug from 'debug';
+import fs from "fs";
+import path from "path";
+import debug from "debug";
 
-import Router from 'react-router';
-import React from 'react';
+import Router from "react-router";
+import React from "react";
 
 // Paths are relative to `app` directory
-import routes from 'routes';
+import routes from "routes";
 
-import Iso from 'iso';
-import alt from 'utils/alt';
+import Iso from "iso";
+import alt from "utils/alt";
 
 export default function *() {
   const isCashed = this.cashed ? yield *this.cashed() : false;
@@ -36,15 +36,15 @@ export default function *() {
     iso.add(node, alt.flush());
     var content = iso.render();
     let assets;
-    if (process.env.NODE_ENV === 'development') {
-      assets = fs.readFileSync(path.resolve(__dirname, './webpack-stats.json'));
+    if (process.env.NODE_ENV === "development") {
+      assets = fs.readFileSync(path.resolve(__dirname, "./webpack-stats.json"));
       assets = JSON.parse(assets);
     }
     else {
-      assets = require('./webpack-stats.json');
+      assets = require("./webpack-stats.json");
     }
 
-    debug('dev')('return html content');
-    yield this.render('main', {content, assets});
+    debug("dev")("return html content");
+    yield this.render("main", {content, assets});
   }
 }

@@ -1,13 +1,13 @@
-'use strict';
+"use strict";
 
-import React from 'react';
-import connectToStores from 'alt/utils/connectToStores';
-import FilmItem from 'components/shared/film-item';
+import React from "react";
+import connectToStores from "alt/utils/connectToStores";
+import FilmItem from "components/shared/film-item";
 
-import DirectorsStore from 'stores/directors-store';
-import FilmsStore from 'stores/films-store';
-import DirectorsActions from 'actions/directors-actions';
-import FilmsActions from 'actions/films-actions';
+import DirectorsStore from "stores/directors-store";
+import FilmsStore from "stores/films-store";
+import DirectorsActions from "actions/directors-actions";
+import FilmsActions from "actions/films-actions";
 
 @connectToStores
 export default class FilmProfile extends React.Component {
@@ -41,7 +41,7 @@ export default class FilmProfile extends React.Component {
         <h2>Loading...</h2>
       );
     }
-    else if (this.props.film !== '') {
+    else if (this.props.film !== "") {
       return (
         <div className="container">
           <h1>Film Profile</h1>

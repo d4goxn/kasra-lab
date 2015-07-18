@@ -1,13 +1,13 @@
-import React from 'react';
-import DirectorForm from './director-form';
-import ActionBar from 'components/shared/action-bar';
-import {ModalTrigger, Button} from 'react-bootstrap';
-import moment from 'moment';
-import connectToStores from 'alt/utils/connectToStores';
-import {authDecorator} from 'utils/component-utils';
+import React from "react";
+import DirectorForm from "./director-form";
+import ActionBar from "components/shared/action-bar";
+import {ModalTrigger, Button} from "react-bootstrap";
+import moment from "moment";
+import connectToStores from "alt/utils/connectToStores";
+import {authDecorator} from "utils/component-utils";
 
-import DirectorsStore from 'stores/directors-store';
-import DirectorsActions from 'actions/directors-actions';
+import DirectorsStore from "stores/directors-store";
+import DirectorsActions from "actions/directors-actions";
 
 @authDecorator
 @connectToStores
@@ -65,7 +65,7 @@ export default class DirectorsTable extends React.Component {
             <tr key={index}>
               <td>{item.name}</td>
               <td>{item.nationality}</td>
-              <td>{moment(item.birthday).format('D MMMM YYYY')}</td>
+              <td>{moment(item.birthday).format("D MMMM YYYY")}</td>
               <td className="ellipsis">{item.biography}</td>
               <td>
                 <ActionBar

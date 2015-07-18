@@ -1,10 +1,10 @@
-import React from 'react';
-import FilmForm from './film-form';
-import {ModalTrigger, Button} from 'react-bootstrap';
-import ActionBar from 'components/shared/action-bar';
+import React from "react";
+import FilmForm from "./film-form";
+import {ModalTrigger, Button} from "react-bootstrap";
+import ActionBar from "components/shared/action-bar";
 
-import DirectorsActions from 'actions/directors-actions';
-import FilmsActions from 'actions/films-actions';
+import DirectorsActions from "actions/directors-actions";
+import FilmsActions from "actions/films-actions";
 
 export default class FilmsTable extends React.Component {
   constructor(props) {

@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-import React from 'react';
-import {Input, Button, Alert} from 'react-bootstrap';
-import {changeHandler} from 'utils/component-utils';
+import React from "react";
+import {Input, Button, Alert} from "react-bootstrap";
+import {changeHandler} from "utils/component-utils";
 
-import LoginActions from 'actions/login-actions';
-// import LoginStore from 'stores/login-store';
-// import LoginActions from 'actions/login-actions';
+import LoginActions from "actions/login-actions";
+// import LoginStore from "stores/login-store";
+// import LoginActions from "actions/login-actions";
 
 @changeHandler
 export default class LoginPage extends React.Component {
@@ -54,15 +54,15 @@ export default class LoginPage extends React.Component {
         <br/>
         {error}
         <Input
-          label='Username'
-          type='text'
+          label="Username"
+          type="text"
           value={this.state.login.username}
-          onChange={this.changeHandler.bind(this, 'login', 'username')} />
+          onChange={this.changeHandler.bind(this, "login", "username")} />
         <Input
-          label='Password'
-          type='password'
+          label="Password"
+          type="password"
           value={this.state.login.password}
-          onChange={this.changeHandler.bind(this, 'login', 'password')} />
+          onChange={this.changeHandler.bind(this, "login", "password")} />
         <Button bsStyle="danger" onClick={this.register.bind(this)}>Create account</Button>
         <Button bsStyle="success" className="pull-right" onClick={this.login.bind(this)}>Sign in</Button>
       </div>

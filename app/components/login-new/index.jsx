@@ -1,9 +1,9 @@
-import React from 'react';
-import AltContainer from 'alt/AltContainer';
+import React from "react";
+import AltContainer from "alt/AltContainer";
 
-import LoginStore from 'stores/login-store';
-import LoginActions from 'actions/login-actions';
-import LoginPage from './login-page';
+import LoginStore from "stores/login-store";
+import LoginActions from "actions/login-actions";
+import LoginPage from "./login-page";
 
 export default class Login extends React.Component {
 	render() {
