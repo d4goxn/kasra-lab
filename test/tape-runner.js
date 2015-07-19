@@ -5,20 +5,12 @@ require("babel/register");
 var _ = require("lodash");
 var uncache = require("require-uncache");
 var glob = require("glob").sync;
-var Mocha = require("mocha");
 var jsdom = require("jsdom");
-
-global.sinon = require("sinon");
-global.chai = require("chai");
-global.chai.use(require("chai-spies"));
-global.chai.use(require("sinon-chai"));
-global.assert = global.chai.assert;
-global.expect = global.chai.expect;
-global.should = global.chai.should();
+var pathUtils = require("path");
 
 var filePatterns = _([
-	"test/**/*spec.js",
-	"app/**/*spec.js"
+	"test/**/*test.js",
+	"app/**/*test.js"
 ]);
 
 function runTests() {
@@ -37,22 +29,25 @@ function runTests() {
 	global.navigator.userAgent = "NodeJs JsDom";
 	global.navigator.appVersion = "";
 
-	var mocha = new Mocha();
-	mocha.reporter("spec").ui("bdd");
 	var testFiles = filePatterns.reduce(function(sum, item) {
 		return sum.concat(glob(item));
 	}, []);
 
-	mocha.suite.on("pre-require", function(context, file) {
-		uncache(file);
-	});
+	uncache("tape");
+	var test = require("tape");
+	var faucet = require("faucet");
+	// var tapSpec = require("tap-spec");
+
+	test.createStream()
+		.pipe(faucet())
+		.pipe(process.stdout);
 
 	testFiles.forEach(function(file) {
-		mocha.addFile(file);
+		const absPath = pathUtils.join(process.cwd(), file);
+		uncache(absPath);
+		require(absPath);
 	});
-
-	mocha.run();
-};
+}
 
 runTests();
 

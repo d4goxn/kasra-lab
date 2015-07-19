@@ -66,12 +66,12 @@ describe("LoginStore", () => {
 		beforeEach((done) => {
 			nock("http://localhost:80")
 				.post("/auth/login")
-				.reply(200, mockUserResponse)
+				.reply(200, mockUserResponse);
 
 			var storeData = function(action) {
 				data = action.data;
 				done();
-			}
+			};
 
 			handlerToken = alt.dispatcher.register(storeData);
 			actions.login();
@@ -83,7 +83,7 @@ describe("LoginStore", () => {
 
 		afterEach(()=> {
 			alt.dispatcher.unregister(handlerToken);
-		})
+		});
 	});
 
 	describe("failed login", () => {
