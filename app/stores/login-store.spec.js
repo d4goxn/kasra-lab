@@ -59,6 +59,33 @@ describe("LoginStore", () => {
 		});
 	});
 
+	describe("login action", () => {
+		var data;
+		var handlerToken;
+
+		beforeEach((done) => {
+			nock("http://localhost:80")
+				.post("/auth/login")
+				.reply(200, mockUserResponse);
+
+			var storeData = function(action) {
+				data = action.data;
+				done();
+			};
+
+			handlerToken = alt.dispatcher.register(storeData);
+			actions.login();
+		});
+
+		it("should dispatch user data", function() {
+			data.user.should.deep.eq(mockUserResponse);
+		});
+
+		afterEach(()=> {
+			alt.dispatcher.unregister(handlerToken);
+		});
+	});
+
 	describe("failed login", () => {
 		beforeEach((done) => {
 			nock("http://localhost:80")
